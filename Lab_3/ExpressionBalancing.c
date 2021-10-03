@@ -1,4 +1,3 @@
-// ReverseUsingStack.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -38,7 +37,7 @@ void push (Stack * stack, char x)
         return;
     }
     stack->array[++(stack->top)] = x;
-    // printf("%c pushed to stack\n", x);
+    printf("%c pushed to stack at %d\n", x, stack->top);
 }
 
 int pop (Stack * stack)
@@ -51,28 +50,46 @@ int pop (Stack * stack)
     return stack->array[stack->top--];
 }
 
-char peek(Stack * stack)
+bool match(char character1, char character2)
 {
-    if(isEmpty(stack))
-    {
-        return INT_MIN;
-    }
-    return stack->array[stack->top];
+    if (character1 == '(' && character2 == ')')
+        return true;
+    else if (character1 == '{' && character2 == '}')
+        return true;
+    else if (character1 == '[' && character2 == ']')
+        return true;
+    return false;
 }
+
 
 int main()
 {
-    Stack * stack_1 = createStack(10);
-    printf("Enter a string of length less than 10 that you want to reverse:\n");
-    char str[11];
+    Stack * stack_1 = createStack(50);
+    printf("Enter the expression:\n");
+    char str[50];
     scanf("%s", str);
     for(int i = 0; i < strlen(str); i++)
     {
-        push(stack_1, str[i]);
+        if(str[i] == '(' || str[i] == '{' || str[i] == '[')
+        {
+            push(stack_1, str[i]);
+        }
+        else
+        {
+            char x = pop(stack_1);
+            if(!match(x,str[i]))
+            {
+                printf("Not balanced.\n");
+                return 0;
+            }
+        }
     }
-    for(int i = 0; i < strlen(str); i++)
+    if(isEmpty(stack_1))
     {
-        char x = pop(stack_1);
-        printf("%c\n", x);
+        printf("Balanced.\n");
+    }
+    else
+    {
+        printf("Not balanced.\n");
     }
 }

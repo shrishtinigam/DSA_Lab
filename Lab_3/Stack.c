@@ -49,8 +49,7 @@ void push (Stack * stack, int x)
         printf("Stack Overflow\n");
         return;
     }
-    stack->top = stack->top + 1;
-    stack->array[stack->top] = x;
+    stack->array[++(stack->top)] = x;
     printf("%d pushed to stack\n", x);
 }
 
