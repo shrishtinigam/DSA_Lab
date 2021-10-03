@@ -1,11 +1,13 @@
+// ReverseUsingStack.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 typedef struct Stack {
     int top;
     unsigned max;
-    int * array;
+    char * array;
 }Stack;
 
 Stack * createStack(unsigned max)
@@ -13,7 +15,7 @@ Stack * createStack(unsigned max)
     Stack * stack = (Stack *) malloc(sizeof(Stack));
     stack->max = max;
     stack->top = -1;
-    stack->array = (int *) malloc(stack->max * sizeof(int));
+    stack->array = (char *) malloc(stack->max * sizeof(char));
     return stack;
 }
 
@@ -27,22 +29,8 @@ bool isEmpty(Stack * stack)
     return stack->top == -1;
 }
 
-void printStack(Stack * stack)
-{
-    if(isEmpty(stack))
-    {
-        printf("Stack is empty\n");
-        return;
-    }
-    
-    for(int i = 0; i < stack->top + 1; i++)
-    {
-        printf("%d ", stack->array[i]);
-    }
-    printf("\n");
-}
 
-void push (Stack * stack, int x)
+void push (Stack * stack, char x)
 {
     if(isFull(stack))
     {
@@ -51,7 +39,7 @@ void push (Stack * stack, int x)
     }
     stack->top = stack->top + 1;
     stack->array[stack->top] = x;
-    printf("%d pushed to stack\n", x);
+    // printf("%c pushed to stack\n", x);
 }
 
 int pop (Stack * stack)
@@ -75,26 +63,17 @@ int peek(Stack * stack)
 
 int main()
 {
-    Stack * stack_1 = createStack(6); // creating stack with max size 6
-    // push numbers onto stack
-    push(stack_1, 23);
-    push(stack_1, 56);
-    push(stack_1, 37);
-    push(stack_1, 92);
-    printf("The top element is: %d\n", peek(stack_1));
-    push(stack_1, 102);
-    push(stack_1, 42); 
-    printf("Top is %d\n", stack_1->top);
-    push(stack_1, 63); // stack overflow
-    printf("Top is %d\n", stack_1->top);
-    printStack(stack_1);
-    printf("%d was popped off\n", pop(stack_1));
-    printf("%d was popped off\n", pop(stack_1));
-    printf("%d was popped off\n", pop(stack_1));
-    printf("%d was popped off\n", pop(stack_1));
-    printf("%d was popped off\n", pop(stack_1));
-    printf("%d was popped off\n", pop(stack_1));
-    printf("%d\n", pop(stack_1)); // stack underflow
-    printf("Top is %d\n", stack_1->top);
-    printStack(stack_1);
+    Stack * stack_1 = createStack(10);
+    printf("Enter a string of length less than 10 that you want to reverse.\n");
+    char str[11];
+    scanf("%s", str);
+    for(int i = 0; i < strlen(str); i++)
+    {
+        push(stack_1, str[i]);
+    }
+    for(int i = 0; i < strlen(str); i++)
+    {
+        char x = pop(stack_1);
+        printf("%c\n", x);
+    }
 }
