@@ -16,7 +16,7 @@ struct Queue* createQueue(unsigned max)
     queue->front = -1;
     queue->rear = -1;
     queue->array = (int*)malloc(queue->max * sizeof(int));
-    printf("Queue of max %d created!\n", max);
+    printf("Queue of capacity %d created!\n", max);
     return queue;
 }
 bool isFull(Queue* queue)

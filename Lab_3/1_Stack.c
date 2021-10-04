@@ -72,6 +72,7 @@ int peek(Stack * stack)
     return stack->array[stack->top];
 }
 
+
 int main()
 {
     Stack * stack_1 = createStack(6); // creating stack with max size 6
