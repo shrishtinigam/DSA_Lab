@@ -1,3 +1,4 @@
+// 2_Queue.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -62,49 +63,65 @@ int dequeue(Queue* queue)
     return item;
 }
 
+// This function should not be available, but it is used here for illustration purposes
+void printQueue(Queue * queue)
+{
+    if(isEmpty(queue))
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Current queue: "); 
+    for(int i = queue->front; i <= queue->rear; i++)
+    {
+        printf("%d ", queue->array[i]);
+    }
+    printf("\n");
+}
+
 int main()
 {
     Queue * queue_1 = createQueue(6);
     enqueue(queue_1, 1);
+    printQueue(queue_1);
     enqueue(queue_1, 2);
+    printQueue(queue_1);
     enqueue(queue_1, 3);
+    printQueue(queue_1);
     enqueue(queue_1, 4);
+    printQueue(queue_1);
+    dequeue(queue_1); // A dequeue
+    printQueue(queue_1);
     enqueue(queue_1, 5);
+    printQueue(queue_1);
     enqueue(queue_1, 6);
+    printQueue(queue_1);
     enqueue(queue_1, 7);
+    printQueue(queue_1);
     dequeue(queue_1);
+    printQueue(queue_1);
     dequeue(queue_1);
+    printQueue(queue_1);
     dequeue(queue_1);
+    printQueue(queue_1);
     dequeue(queue_1);
+    printQueue(queue_1);
     dequeue(queue_1);
+    printQueue(queue_1);
     dequeue(queue_1);
-    dequeue(queue_1);
+    printQueue(queue_1);
+    // Once the a full queue has been dequeued completely, it can't be used again.
     enqueue(queue_1, 1);
+    printQueue(queue_1);
     enqueue(queue_1, 2);
+    printQueue(queue_1);
     enqueue(queue_1, 3);
+    printQueue(queue_1);
     enqueue(queue_1, 4);
+    printQueue(queue_1);
     enqueue(queue_1, 5);
+    printQueue(queue_1);
     enqueue(queue_1, 6);
+    printQueue(queue_1);
     enqueue(queue_1, 7);
-    dequeue(queue_1);
-    dequeue(queue_1);
-    dequeue(queue_1);
-    dequeue(queue_1);
-    dequeue(queue_1);
-    dequeue(queue_1);
-    dequeue(queue_1);
-    enqueue(queue_1, 1);
-    enqueue(queue_1, 2);
-    enqueue(queue_1, 3);
-    enqueue(queue_1, 4);
-    enqueue(queue_1, 5);
-    enqueue(queue_1, 6);
-    enqueue(queue_1, 7);
-    dequeue(queue_1);
-    dequeue(queue_1);
-    dequeue(queue_1);
-    dequeue(queue_1);
-    dequeue(queue_1);
-    dequeue(queue_1);
-    dequeue(queue_1);
 }

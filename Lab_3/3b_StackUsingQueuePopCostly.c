@@ -1,4 +1,4 @@
-// StackUsingQueuePopCostly.c
+// 3b_StackUsingQueuePopCostly.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -129,22 +129,62 @@ int pop(Stack * stack)
     return item;
 }
 
+// This function should not be available, but it is used here for illustration purposes
+void printStack(Queue * queue)
+{
+    if(isEmpty(queue))
+    {
+        printf("Stack is empty\n");
+        return;
+    }
+    printf("Current stack: "); 
+    if(queue->front <= queue->rear)
+    {
+        for(int i = queue->front; i <= queue->rear; i++)
+        {
+            printf("%d ", queue->array[i]);
+        }
+    }
+    else{
+        for(int i = queue->front; i < queue->max; i++)
+        {
+            printf("%d ", queue->array[i]);
+        }
+        for(int i = 0; i <= queue->rear; i++)
+        {
+            printf("%d ", queue->array[i]);
+        }
+    }
+    printf("\n");
+}
+
 int main()
 {
-    Stack * stack_1 = createStack(6); // creating stack with max size 6
-    // push numbers onto stack
+    Stack * stack_1 = createStack(6);
     push(stack_1, 23);
+    printStack(stack_1->queue_1);
     push(stack_1, 56);
+    printStack(stack_1->queue_1);
     push(stack_1, 37);
+    printStack(stack_1->queue_1);
     push(stack_1, 92);
+    printStack(stack_1->queue_1);
     push(stack_1, 10);
+    printStack(stack_1->queue_1);
     push(stack_1, 41);
+    printStack(stack_1->queue_1);
     push(stack_1, 41);
     pop(stack_1);
+    printStack(stack_1->queue_1);
     pop(stack_1);
+    printStack(stack_1->queue_1);
     pop(stack_1);
+    printStack(stack_1->queue_1);
     pop(stack_1);
+    printStack(stack_1->queue_1);
     pop(stack_1);
+    printStack(stack_1->queue_1);
     pop(stack_1);
+    printStack(stack_1->queue_1);
     pop(stack_1);
 }

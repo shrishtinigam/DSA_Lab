@@ -1,4 +1,4 @@
-// QueueUsingStackDequeueCostly.c
+// 4b_QueueUsingStackDequeueCostly.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -78,7 +78,7 @@ int dequeue(Queue * queue)
 {
     if(isEmpty(queue->stack_1))
     {
-        printf("Queue Underflow");
+        printf("Queue Underflow\n");
         return INT_MIN;
     }
     while(!isEmpty(queue->stack_1))
@@ -94,21 +94,50 @@ int dequeue(Queue * queue)
     return item;
 }
 
+// This function should not be available, but it is used here for illustration purposes
+void printQueue(Stack * stack)
+{
+    if(isEmpty(stack))
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Current queue: "); 
+    for(int i = 0; i < stack->top + 1; i++)
+    {
+        printf("%d ", stack->array[i]);
+    }
+    printf("\n");
+}
+
 int main()
 {
     Queue * queue_1 = createQueue(6);
     enqueue(queue_1, 1);
+    printQueue(queue_1->stack_1);
     enqueue(queue_1, 2);
+    printQueue(queue_1->stack_1);
     enqueue(queue_1, 3);
+    printQueue(queue_1->stack_1);
     enqueue(queue_1, 4);
+    printQueue(queue_1->stack_1);
     enqueue(queue_1, 5);
+    printQueue(queue_1->stack_1);
     enqueue(queue_1, 6);
+    printQueue(queue_1->stack_1);
     enqueue(queue_1, 7);
+    printQueue(queue_1->stack_1);
     dequeue(queue_1);
+    printQueue(queue_1->stack_1);
     dequeue(queue_1);
+    printQueue(queue_1->stack_1);
     dequeue(queue_1);
+    printQueue(queue_1->stack_1);
     dequeue(queue_1);
+    printQueue(queue_1->stack_1);
     dequeue(queue_1);
+    printQueue(queue_1->stack_1);
     dequeue(queue_1);
+    printQueue(queue_1->stack_1);
     dequeue(queue_1);
 }

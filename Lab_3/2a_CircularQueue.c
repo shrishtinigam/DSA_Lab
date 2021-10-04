@@ -1,3 +1,4 @@
+// 2a_CircularQueue.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -5,23 +6,23 @@
 
 typedef struct Queue {
     int front, rear;
-    unsigned capacity;
+    unsigned max;
     int* array;
 }Queue;
 
-Queue* createQueue(unsigned capacity)
+Queue* createQueue(unsigned max)
 {
     Queue* queue = (Queue*)malloc(sizeof(Queue));
-    queue->capacity = capacity;
+    queue->max = max;
     queue->front = -1;
     queue->rear = -1;
-    queue->array = (int*)malloc(queue->capacity * sizeof(int));
-    printf("Queue of capacity %d created!\n", capacity);
+    queue->array = (int*)malloc(queue->max * sizeof(int));
+    printf("Queue of capacity %d created!\n", max);
     return queue;
 }
 bool isFull(Queue* queue)
 {
-    return ((queue->front == 0 && queue->rear == (queue->capacity) - 1)||(queue->front == queue->rear+1));
+    return ((queue->front == 0 && queue->rear == (queue->max) - 1)||(queue->front == queue->rear+1));
 }
 
 bool isEmpty(Queue* queue)
@@ -41,7 +42,7 @@ void enqueue(Queue* queue, int item)
         queue->front = 0;
         queue->rear = 0;
     }
-    else if((queue->rear == (queue->capacity) - 1) && queue->front != 0)
+    else if((queue->rear == (queue->max) - 1) && queue->front != 0)
     {
         queue->rear = 0;
     }
@@ -66,7 +67,7 @@ int dequeue(Queue* queue)
         queue->front = -1;
         queue->rear = -1;
     }
-    else if(queue->front == (queue->capacity - 1))
+    else if(queue->front == (queue->max - 1))
     {
         queue->front = 0;
     }
@@ -78,50 +79,119 @@ int dequeue(Queue* queue)
     return item;
 }
 
+// This function should not be available, but it is used here for illustration purposes
+void printCQ(Queue * queue)
+{
+    if(isEmpty(queue))
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    
+    if(queue->front <= queue->rear)
+    {
+        for(int i = queue->front; i <= queue->rear; i++)
+        {
+            printf("%d ", queue->array[i]);
+        }
+    }
+    else{
+        for(int i = queue->front; i < queue->max; i++)
+        {
+            printf("%d ", queue->array[i]);
+        }
+        for(int i = 0; i <= queue->rear; i++)
+        {
+            printf("%d ", queue->array[i]);
+        }
+    }
+    printf("\n");
+}
+
 int main()
 {
     Queue * queue_1 = createQueue(6);
     enqueue(queue_1, 1);
+    printCQ(queue_1);
     enqueue(queue_1, 2);
+    printCQ(queue_1);
     enqueue(queue_1, 3);
+    printCQ(queue_1);
     enqueue(queue_1, 4);
+    printCQ(queue_1);
     enqueue(queue_1, 5);
+    printCQ(queue_1);
     enqueue(queue_1, 6);
+    printCQ(queue_1);
     enqueue(queue_1, 7);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    
     enqueue(queue_1, 1);
+    printCQ(queue_1);
     enqueue(queue_1, 2);
+    printCQ(queue_1);
     enqueue(queue_1, 3);
+    printCQ(queue_1);
     enqueue(queue_1, 4);
+    printCQ(queue_1);
     enqueue(queue_1, 5);
+    printCQ(queue_1);
     enqueue(queue_1, 6);
+    printCQ(queue_1);
     enqueue(queue_1, 7);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    // Thus, a circular queue can be used as many times as required.
     enqueue(queue_1, 1);
+    printCQ(queue_1);
     enqueue(queue_1, 2);
+    printCQ(queue_1);
     enqueue(queue_1, 3);
+    printCQ(queue_1);
+    dequeue(queue_1);
+    printCQ(queue_1);
     enqueue(queue_1, 4);
+    printCQ(queue_1);
     enqueue(queue_1, 5);
+    printCQ(queue_1);
+    dequeue(queue_1);    
+    printCQ(queue_1);
     enqueue(queue_1, 6);
+    printCQ(queue_1);
     enqueue(queue_1, 7);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
+    printCQ(queue_1);
     dequeue(queue_1);
-    dequeue(queue_1);
-    dequeue(queue_1);
-
 }

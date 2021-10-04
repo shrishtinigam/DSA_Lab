@@ -1,3 +1,4 @@
+// 6_ExpressionBalancing.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -28,7 +29,6 @@ bool isEmpty(Stack * stack)
     return stack->top == -1;
 }
 
-
 void push (Stack * stack, char x)
 {
     if(isFull(stack))
@@ -37,7 +37,7 @@ void push (Stack * stack, char x)
         return;
     }
     stack->array[++(stack->top)] = x;
-    printf("%c pushed to stack at %d\n", x, stack->top);
+    // printf("%c pushed to stack at %d\n", x, stack->top);
 }
 
 int pop (Stack * stack)

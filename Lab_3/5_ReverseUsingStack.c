@@ -1,4 +1,4 @@
-// ReverseUsingStack.c
+// 5_ReverseUsingStack.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -51,15 +51,6 @@ int pop (Stack * stack)
     return stack->array[stack->top--];
 }
 
-char peek(Stack * stack)
-{
-    if(isEmpty(stack))
-    {
-        return INT_MIN;
-    }
-    return stack->array[stack->top];
-}
-
 int main()
 {
     Stack * stack_1 = createStack(10);
@@ -73,6 +64,6 @@ int main()
     for(int i = 0; i < strlen(str); i++)
     {
         char x = pop(stack_1);
-        printf("%c\n", x);
+        printf("%c", x);
     }
 }

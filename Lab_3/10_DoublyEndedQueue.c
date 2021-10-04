@@ -1,4 +1,4 @@
-// DoublyEndedQueue.c
+// 10_DoublyEndedQueue.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -128,7 +128,8 @@ int pop_rear(DQueue* queue)
     return item;
 }
 
-void print(DQueue * queue)
+// This function should not be available, but it is used here for illustration purposes
+void printDQ(DQueue * queue)
 {
     if(isEmpty(queue))
     {
@@ -160,43 +161,43 @@ int main()
 {
     DQueue * queue_1 = createDQueue(10);
     push_front(queue_1, 10);
-    print(queue_1);
+    printDQ(queue_1);
     push_back(queue_1, 20);
-    print(queue_1);
+    printDQ(queue_1);
     push_front(queue_1, 30);
-    print(queue_1);
+    printDQ(queue_1);
     push_back(queue_1, 40);
-    print(queue_1);
+    printDQ(queue_1);
     push_front(queue_1, 50);
-    print(queue_1);
+    printDQ(queue_1);
     push_back(queue_1, 60);
-    print(queue_1);
+    printDQ(queue_1);
     push_front(queue_1, 70);
-    print(queue_1);
+    printDQ(queue_1);
     push_back(queue_1, 80);
-    print(queue_1);
+    printDQ(queue_1);
     push_front(queue_1, 90);
-    print(queue_1);
+    printDQ(queue_1);
     push_back(queue_1, 100);
-    print(queue_1);
+    printDQ(queue_1);
     pop_front(queue_1);
-    print(queue_1);
+    printDQ(queue_1);
     pop_rear(queue_1);
-    print(queue_1);
+    printDQ(queue_1);
     pop_front(queue_1);
-    print(queue_1);
+    printDQ(queue_1);
     pop_rear(queue_1);
-    print(queue_1);
+    printDQ(queue_1);
     pop_front(queue_1);
-    print(queue_1);
+    printDQ(queue_1);
     pop_rear(queue_1);
-    print(queue_1);
+    printDQ(queue_1);
     pop_front(queue_1);
-    print(queue_1);
+    printDQ(queue_1);
     pop_rear(queue_1);
-    print(queue_1);
+    printDQ(queue_1);
     pop_front(queue_1);
-    print(queue_1);
+    printDQ(queue_1);
     pop_rear(queue_1);
-    print(queue_1);
+    printDQ(queue_1);
 }
