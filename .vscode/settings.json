@@ -4,6 +4,7 @@
         "limits": "c",
         "utility": "c",
         "iterator": "c",
-        "xutility": "c"
+        "xutility": "c",
+        "string.h": "c"
     }
 }

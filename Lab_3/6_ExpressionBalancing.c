@@ -33,7 +33,7 @@ void push (Stack * stack, char x)
 {
     if(isFull(stack))
     {
-        printf("Stack Overflow\n");
+        //printf("Stack Overflow\n");
         return;
     }
     stack->array[++(stack->top)] = x;
@@ -44,7 +44,7 @@ int pop (Stack * stack)
 {
     if(isEmpty(stack))
     {
-        printf("Stack Underflow\n");
+        //printf("Stack Underflow\n");
         return INT_MIN;
     }
     return stack->array[stack->top--];
