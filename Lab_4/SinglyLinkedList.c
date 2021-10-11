@@ -88,12 +88,7 @@ void insertAtEnd(SinglyLinkedList * sll, int item)
 // Here, position is determined by usual 1-base counting. If position = 5, item will be the fifth element in the linked list
 void insertAtPosition(SinglyLinkedList * sll, int item, int position)
 {
-    if(position == sll->len + 1)
-    {
-        insertAtEnd(sll, item);
-        return;
-    }
-    else if(position > sll->len + 1)
+    if(position > sll->len + 1)
     {   
         printf("Invalid Location\n");
         return;
@@ -159,18 +154,21 @@ void insertAfterGivenData(SinglyLinkedList * sll, int item, int data)
     sll->len++;
 }
 
-// Traversal
+/* Traversal */
+/* Display function provided for illustrative purposes.*/
 void display(SinglyLinkedList * sll)
 {
     int count = 0;
+    // Printing data
     Node * ptr = sll->start->next; // Setting pointer to the first element in the singly linked list
-    printf("%d \n", sll->start);
+    printf("Start: %d \n", sll->start);
     while(ptr != NULL)
     {
         count++;
         printf("%d      ", ptr->data);
         ptr = ptr->next;
     }
+    // Printing the location
     Node * ptr2 = sll->start->next; 
     printf("\n%d ", sll->start->next);
     while(ptr2 != NULL)
@@ -246,9 +244,7 @@ int deleteAtEnd(SinglyLinkedList * sll)
     }
     Node * ptr = sll->start;
     while(ptr->next->next != NULL)
-    {
        ptr = ptr->next;
-    }
     Node * ptr2 = ptr->next;
     int data = ptr2->data;
     free(ptr2);
@@ -258,7 +254,7 @@ int deleteAtEnd(SinglyLinkedList * sll)
     return data;
 }
 
-// Delete an element at a particular position
+// Deletion of an element at a particular position
 // Here, position is determined by usual 1-base counting.
 int deleteAtPosition(SinglyLinkedList * sll, int position)
 {
@@ -268,15 +264,7 @@ int deleteAtPosition(SinglyLinkedList * sll, int position)
         return INT_MIN;
     }
 
-    if(position == 1)
-    {
-        return deleteAtStart(sll);
-    }
-    else if(position == sll->len)
-    {
-        return deleteAtEnd(sll);
-    }
-    else if(position > sll->len)
+    if(position > sll->len)
     {   
         printf("Invalid Location\n");
         return INT_MIN;
@@ -284,9 +272,7 @@ int deleteAtPosition(SinglyLinkedList * sll, int position)
 
     Node * ptr = sll->start;
     for(int i = 0; i < (position - 1); i++)
-    {
         ptr = ptr->next;
-    }
     Node * ptr2 = ptr->next;
     ptr->next = ptr2->next;
     int data = ptr2->data;
@@ -357,7 +343,7 @@ int main()
     display(sll);
     insertAfterGivenData(sll, 110, 90);
     display(sll);
-    insertAfterGivenData(sll, 120, 25);
+    insertAfterGivenData(sll, 120, 25); // 25 is not present in the sll
     display(sll);
     // Delete at start
     deleteAtStart(sll);
