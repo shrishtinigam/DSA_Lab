@@ -1,3 +1,4 @@
+// SinglyLinkedList.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -15,7 +16,6 @@
     insertAfterPosition
     insertBeforePosition
     insertAfterGivenData
-    insertAscending
 
     display
     count
@@ -66,16 +66,8 @@ SinglyLinkedList * createSinglyLinkedList()
 void insertAtStart(SinglyLinkedList * sll, int item)
 {
     Node * newnode = createNode(item);
-    if(sll->start == NULL)
-    {
-        printf("jello\n");
-        sll->start->next = newnode;
-    }
-    else
-    {
-        newnode->next = sll->start->next;
-        sll->start->next = newnode;
-    }
+    newnode->next = sll->start->next;
+    sll->start->next = newnode;
     printf("%d was inserted at the start of the singly linked list!\n", item);
     sll->len++;
 }
@@ -84,19 +76,10 @@ void insertAtStart(SinglyLinkedList * sll, int item)
 void insertAtEnd(SinglyLinkedList * sll, int item)
 {
     Node * newnode = createNode(item);
-    if(sll->start == NULL)
-    {
-        sll->start->next = newnode;
-    }
-    else
-    {
-        Node * ptr = sll->start;
-        while(ptr->next != NULL)
-        {
-           ptr = ptr->next;
-        }
-        ptr->next = newnode;
-    }
+    Node * ptr = sll->start;
+    while(ptr->next != NULL)
+        ptr = ptr->next;
+    ptr->next = newnode;
     printf("%d was inserted at the end of the singly linked list!\n", item);
     sll->len++;
 }
@@ -105,12 +88,7 @@ void insertAtEnd(SinglyLinkedList * sll, int item)
 // Here, position is determined by usual 1-base counting. If position = 5, item will be the fifth element in the linked list
 void insertAtPosition(SinglyLinkedList * sll, int item, int position)
 {
-    if(position == 1)
-    {
-        insertAtStart(sll, item);
-        return;
-    }
-    else if(position == sll->len + 1)
+    if(position == sll->len + 1)
     {
         insertAtEnd(sll, item);
         return;
@@ -122,18 +100,12 @@ void insertAtPosition(SinglyLinkedList * sll, int item, int position)
     }
 
     Node * newnode = createNode(item);
-    if(sll->start == NULL)
-        sll->start->next = newnode;
-    else
-    {
-        Node * ptr = sll->start;
-        for(int i = 0; i < (position - 1); i++)
-        {
-            ptr = ptr->next;
-        }
-        newnode->next = ptr->next;
-        ptr->next = newnode;
-    }
+    
+    Node * ptr = sll->start;
+    for(int i = 0; i < (position - 1); i++)
+        ptr = ptr->next;
+    newnode->next = ptr->next;
+    ptr->next = newnode;
     printf("%d was inserted at position %d of the singly linked list!\n", item, position);
     sll->len++;
 }
@@ -187,75 +159,26 @@ void insertAfterGivenData(SinglyLinkedList * sll, int item, int data)
     sll->len++;
 }
 
-// Insert elements in ascending order. Can be used to create a sorted linked list.
-// Inserts in a stable order, i.e the element added first will appear first if two elements have the same value.
-void insertAscending(SinglyLinkedList * sll, int item)
-{ 
-    Node * newnode = createNode(item);
-    if(sll->start == NULL)
-    {
-        sll->start->next = newnode;
-        printf("%d was inserted in ascending order in the singly linked list!\n", item);
-        sll->len++;
-        return;
-    }
-    Node * ptr = sll->start->next;
-    Node * ptr2;
-    // If item is smaller than first element
-    if(ptr->data > item)
-    {
-        newnode->next = sll->start->next;
-        sll->start->next = newnode;
-        printf("%d was inserted in ascending order in the singly linked list!\n", item);
-        sll->len++;
-        return;
-    }
-    // To find the first element that is larger than item
-    while(ptr->data <= item)
-    {
-        ptr2 = ptr;
-        if(ptr->next == NULL)
-        {
-            if(item >= ptr->data)
-            {
-                ptr->next = newnode;
-                sll->len++;
-                return;
-            }
-        }
-        ptr = ptr->next;
-    }
-    /*
-    if(ptr->data == item)
-    {
-        newnode->next = ptr->next;
-        ptr->next = newnode;
-        printf("%d was inserted in ascending order in the singly linked list!\n", item);
-        sll->len++;
-        return;
-    }*/
-    printf("ptr data -> %d, item -> %d\n", ptr->data, item);
-    newnode->next = ptr2->next;
-    ptr2->next = newnode;
-    printf("%d was inserted in ascending order in the singly linked list!\n", item);
-    sll->len++;
-}
-
 // Traversal
 void display(SinglyLinkedList * sll)
 {
     int count = 0;
     Node * ptr = sll->start->next; // Setting pointer to the first element in the singly linked list
-    printf("%d ", sll->start);
-    printf("%d ", sll->start->next);
+    printf("%d \n", sll->start);
     while(ptr != NULL)
     {
         count++;
-        printf("%d ", ptr->data);
-        printf("%d ", ptr->next);
+        printf("%d      ", ptr->data);
         ptr = ptr->next;
     }
-    printf("\nTotal Elements in the Linked List: %d\n", count);
+    Node * ptr2 = sll->start->next; 
+    printf("\n%d ", sll->start->next);
+    while(ptr2 != NULL)
+    {
+        printf("%d ", ptr2->next);
+        ptr2 = ptr2->next;
+    }
+    printf("\nTotal Elements in the Linked List: %d\n\n", count);
 }
 
 void count(SinglyLinkedList * sll)
@@ -407,7 +330,6 @@ int deleteAfterGivenData(SinglyLinkedList * sll, int data)
 
 int main()
 {
-    /*
     SinglyLinkedList * sll = createSinglyLinkedList();
     // Insertion At Start
     insertAtStart(sll, 10); // Singly Linked List is empty initially
@@ -435,7 +357,7 @@ int main()
     display(sll);
     insertAfterGivenData(sll, 110, 90);
     display(sll);
-    insertAfterGivenData(sll, 120, 20);
+    insertAfterGivenData(sll, 120, 25);
     display(sll);
     // Delete at start
     deleteAtStart(sll);
@@ -454,10 +376,16 @@ int main()
     // Delete at position
     deleteAtPosition(sll, 5);
     display(sll);
-    deleteAtPosition(sll, 5);
+    deleteAtPosition(sll, 1);
+    display(sll);
+    deleteAtPosition(sll, 8);
     display(sll);
     // Delete after given data
     deleteAfterGivenData(sll, 120);
+    display(sll);
+    deleteAfterGivenData(sll, 50);
+    display(sll);
+    deleteAfterGivenData(sll, 50);
     display(sll);
     deleteAfterGivenData(sll, 50);
     display(sll);
@@ -466,26 +394,4 @@ int main()
     // Search
     search(sll, 50);
     search(sll, 45);
-    */
-    // A sorted Singly Linked List
-    SinglyLinkedList * sll2 = createSinglyLinkedList();
-    display(sll2);
-    insertAtStart(sll2, 1);
-    insertAtStart(sll2, 1);
-    insertAscending(sll2, 1);
-    display(sll2);
-    insertAscending(sll2, 3);
-    display(sll2);
-    insertAscending(sll2, 4);
-    display(sll2);
-    insertAscending(sll2, 2);
-    display(sll2);
-    insertAscending(sll2, 5);
-    display(sll2);
-    insertAscending(sll2, 6);
-    display(sll2);
-    insertAscending(sll2, 8);
-    display(sll2);
-    insertAscending(sll2, 7);
-    display(sll2);
 }
