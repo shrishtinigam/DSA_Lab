@@ -220,7 +220,7 @@ int search(SinglyLinkedList * sll, int item)
 // Deletion at start
 int deleteAtStart(SinglyLinkedList * sll)
 {
-    if(sll->start == NULL)
+    if(sll->start->next == NULL)
     {
         printf("Singly Linked List is empty, nothing to delete\n");
         return INT_MIN;
@@ -237,7 +237,7 @@ int deleteAtStart(SinglyLinkedList * sll)
 // Deletion at end
 int deleteAtEnd(SinglyLinkedList * sll)
 {
-    if(sll->start == NULL)
+    if(sll->start->next == NULL)
     {
         printf("Singly Linked List is empty, nothing to delete\n");
         return INT_MIN;
@@ -258,7 +258,7 @@ int deleteAtEnd(SinglyLinkedList * sll)
 // Here, position is determined by usual 1-base counting.
 int deleteAtPosition(SinglyLinkedList * sll, int position)
 {
-    if(sll->start == NULL)
+    if(sll->start->next == NULL)
     {
         printf("Singly Linked List is empty, nothing to delete\n");
         return INT_MIN;
@@ -285,7 +285,7 @@ int deleteAtPosition(SinglyLinkedList * sll, int position)
 // Delete the element present after a given data
 int deleteAfterGivenData(SinglyLinkedList * sll, int data)
 {
-    if(sll->start == NULL)
+    if(sll->start->next == NULL)
     {
         printf("Singly Linked List is empty, nothing to delete\n");
         return INT_MIN;
@@ -317,6 +317,8 @@ int deleteAfterGivenData(SinglyLinkedList * sll, int data)
 int main()
 {
     SinglyLinkedList * sll = createSinglyLinkedList();
+    deleteAtStart(sll);
+    display(sll);
     // Insertion At Start
     insertAtStart(sll, 10); // Singly Linked List is empty initially
     display(sll);
