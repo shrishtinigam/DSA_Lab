@@ -88,17 +88,18 @@ void insertAtEnd(SinglyLinkedList * sll, int item)
 // Here, position is determined by usual 1-base counting. If position = 5, item will be the fifth element in the linked list
 void insertAtPosition(SinglyLinkedList * sll, int item, int position)
 {
-    if(position > sll->len + 1)
-    {   
-        printf("Invalid Location\n");
-        return;
-    }
-
     Node * newnode = createNode(item);
     
     Node * ptr = sll->start;
     for(int i = 0; i < (position - 1); i++)
+    {
         ptr = ptr->next;
+        if(ptr->next == NULL && i + 2 != position)
+        {
+            printf("Invalid Location\n");
+            return;
+        }
+    }
     newnode->next = ptr->next;
     ptr->next = newnode;
     printf("%d was inserted at position %d of the singly linked list!\n", item, position);
@@ -131,7 +132,7 @@ void insertAfterGivenData(SinglyLinkedList * sll, int item, int data)
      *   }
      *   insertAtPosition(sll, item, position);
      */
-    if(sll->start == NULL)
+    if(sll->start->next == NULL)
     {
         printf("Data doesn't exist\n");
         return;
@@ -264,15 +265,16 @@ int deleteAtPosition(SinglyLinkedList * sll, int position)
         return INT_MIN;
     }
 
-    if(position > sll->len)
-    {   
-        printf("Invalid Location\n");
-        return INT_MIN;
-    }
-
     Node * ptr = sll->start;
     for(int i = 0; i < (position - 1); i++)
+    {
         ptr = ptr->next;
+        if(ptr->next == NULL && i + 1 != position)
+        {
+            printf("Invalid Location\n");
+            return INT_MIN;
+        }
+    }
     Node * ptr2 = ptr->next;
     ptr->next = ptr2->next;
     int data = ptr2->data;
@@ -382,4 +384,5 @@ int main()
     // Search
     search(sll, 50);
     search(sll, 45);
+
 }
