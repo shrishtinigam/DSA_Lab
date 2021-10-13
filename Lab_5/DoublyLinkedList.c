@@ -5,7 +5,23 @@
 
 /*
     A doubly linked list here is defined by its "start".
-    "start" is a node pointer that doesn't store any data, but  
+    "start" is a node pointer that points to the first element.
+
+    Here, start is a proper node with memory allocated to it.
+    Note that start doesn't store any actual data.
+    The next of the start node stores the location of the first element in the doubly linked list. 
+    The prev of the start node is NULL and never accessed.
+    The data of the start node is INT_MIN and never accessed.
+
+    Thus, if we create a doubly linked list "dll", dll->start->next gives us the first element.
+
+    The first element's prev node is NULL. (Thus, it is not connected to the start node.)
+
+    "len" stores the number of elements in the linked list. This can be easily calculated,
+    however it is added to make things easier and for illustration. It can be removed. 
+    Functions are written independent of len.
+
+    Functions provided: 
 
     insertAtStart
     insertAtEnd
@@ -46,7 +62,7 @@ DoublyLinkedList * createDoublyLinkedList()
     DoublyLinkedList * dll = (DoublyLinkedList *)malloc(sizeof(DoublyLinkedList));
     dll->len = 0;
     dll->start = (Node *)malloc(sizeof(Node));
-    dll->start->data = INT_MIN; // // Data in the start node is never to be accessed. If INT_MIN is the data displayed, an error has possibly occured
+    dll->start->data = INT_MIN; // Data in the start node is never to be accessed. If INT_MIN is the data displayed, an error has possibly occured
     dll->start->next = NULL;
     dll->start->prev = NULL;
     printf("A new doubly linked list was created!\n");
@@ -59,15 +75,11 @@ DoublyLinkedList * createDoublyLinkedList()
 void insertAtStart(DoublyLinkedList * dll, int item)
 {
     Node * newnode = createNode(item);
-    if(dll->start->next == NULL)
+    if(dll->start->next != NULL)
     {
-        dll->start->next = newnode;
-        printf("%d was inserted at the start of the doubly linked list!\n", item);
-        dll->len++;
-        return;
+        newnode->next = dll->start->next;
+        dll->start->next->prev = newnode;
     }
-    newnode->next = dll->start->next;
-    dll->start->next->prev = newnode;
     dll->start->next = newnode;
     printf("%d was inserted at the start of the doubly linked list!\n", item);
     dll->len++;
@@ -114,23 +126,17 @@ void insertAtPosition(DoublyLinkedList * dll, int item, int position)
     dll->len++;
 }
 
+/* Traversal */
+/* Display function provided for illustrative purposes.*/
 void display(DoublyLinkedList * dll)
 {
     // Printing data
     Node * ptr = dll->start->next; 
-    Node * ptr1 = dll->start; 
     printf("Start: %d \n", dll->start);
     while(ptr != NULL)
     {
         printf("%d       ", ptr->data);
         ptr = ptr->next;
-        ptr1 = ptr1->next;
-    }
-    printf("\n");
-    while(ptr1 != NULL)
-    {
-        printf("%d       ", ptr1->data);
-        ptr1 = ptr1->prev;
     }
     // Printing the location
     Node * ptr2 = dll->start->next; 
@@ -143,6 +149,7 @@ void display(DoublyLinkedList * dll)
     printf("\n");
 }
 
+// Returns the 1-base position of the first occurance of data.
 int search(DoublyLinkedList * dll, int item)
 {
     int count = 1;
@@ -160,6 +167,8 @@ int search(DoublyLinkedList * dll, int item)
     printf("%d found at %d position in the doubly linked list.\n", item, count);
     return count;
 }
+
+/* Deletion */
 
 // Deletion at start
 int deleteAtStart(DoublyLinkedList * dll)
@@ -202,7 +211,8 @@ int deleteAtEnd(DoublyLinkedList * dll)
     printf("%d was deleted from the start of the doubly linked list.\n", data);
     return data;
 }
-// Incomplete
+// Deletion of an element at a particular position
+// Here, position is determined by usual 1-base counting.
 int deleteAtPosition(DoublyLinkedList * dll, int position)
 {
     if(dll->start->next == NULL)
