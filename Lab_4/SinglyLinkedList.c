@@ -3,11 +3,20 @@
 #include <stdlib.h>
 #include <limits.h>
 /*  A singly linked list here is defined by just the "start".
-    "start" is a node pointer that doesn't store any data, but just stores the address
+    "start" is a node pointer that doesn't store any data, just stores the address
     of the first element in the linked list.  
+
+    Here, start is a proper node with memory allocated to it.
+    Note that start doesn't store any actual data.
+    The next of the start node stores the location of the first element in the singly linked list. 
+    The data of the start node is INT_MIN and never accessed.
+
+    Thus, if we create a singly linked list "sll", sll->start->next gives us the first element.
+
     "len" stores the number of elements in the linked list. This can be easily calculated,
     however it is added to make things easier and for illustration. It can be removed. 
     Functions are written independent of len.
+
     Functions provided: 
 
     insertAtStart
@@ -93,12 +102,12 @@ void insertAtPosition(SinglyLinkedList * sll, int item, int position)
     Node * ptr = sll->start;
     for(int i = 0; i < (position - 1); i++)
     {
-        ptr = ptr->next;
-        if(ptr->next == NULL && i + 2 != position)
+        if(ptr->next == NULL && i + 1 < position)
         {
             printf("Invalid Location\n");
             return;
         }
+        ptr = ptr->next;
     }
     newnode->next = ptr->next;
     ptr->next = newnode;
@@ -197,7 +206,7 @@ void count(SinglyLinkedList * sll)
         printf(" which is not equal to len.\n");
 }
 
-// Returns the 1-base position of the item.
+// Returns the 1-base position of the first occurance of data.
 int search(SinglyLinkedList * sll, int item)
 {
     int count = 1;
@@ -208,7 +217,7 @@ int search(SinglyLinkedList * sll, int item)
         count++;
         if(ptr->data != item && ptr->next == NULL)
         {
-            printf("%d not found in the linked list.\n", item);
+            printf("%d not found in the singly linked list.\n", item);
             return INT_MIN;
         }
     }
@@ -269,7 +278,7 @@ int deleteAtPosition(SinglyLinkedList * sll, int position)
     for(int i = 0; i < (position - 1); i++)
     {
         ptr = ptr->next;
-        if(ptr->next == NULL && i + 1 != position)
+        if(ptr->next == NULL && i + 1 < position)
         {
             printf("Invalid Location\n");
             return INT_MIN;
@@ -384,5 +393,4 @@ int main()
     // Search
     search(sll, 50);
     search(sll, 45);
-
 }
