@@ -5,6 +5,9 @@
         "utility": "c",
         "iterator": "c",
         "xutility": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "stdio.h": "c",
+        "vector": "c",
+        "xstring": "c"
     }
 }

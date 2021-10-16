@@ -50,35 +50,17 @@ void merge(int arr[], int l, int m, int r, int size)
     while(i<=m && j<=r)
     {
         if(arr[i]<=arr[j])
-        {
-            temp[k] = arr[i];
-            i++;
-            k++;
-        }
+            temp[k++] = arr[i++];
         else
-        {
-            temp[k]=arr[j];
-            j++;
-            k++;
-        }
+            temp[k++]=arr[j++];
     }
 
     while(i<=m)
-    {
-        temp[k] = arr[i];
-        i++;
-        k++;
-    }
+        temp[k++] = arr[i++];
 
     while(j<=r)
-    {
-        temp[k] = arr[j];
-        j++;
-        k++;
-    }
-    for (int p = l; p <=r; p++)
-    {
+        temp[k++] = arr[j++];
+    
+    for (int p = l; p <= r; p++)
         arr[p] = temp[p];
-    }
-
 }
