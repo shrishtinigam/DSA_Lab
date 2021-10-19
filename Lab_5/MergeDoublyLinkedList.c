@@ -1,20 +1,14 @@
-// NodeSeparation.c
+// MergeDoublyLinkedList.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 /*  Question -
-*   Consider a scenario where n elements are present in the list. User wants to separate the list in two 
-*   using one value x such that all the nodes greater than x comes at one end whereas nodes smaller than 
-*   x comes to another end
+*   Consider one scenario where two lists is given and needs to be merged in a single list. Write a 
+*   program for the given scenario.
 */
 
 /*  Soultion -
-*   Here the question is solved for doubly linked lists.  
-*   We traverse through the linked list. If we come across a node that is greater than x, it is moved to 
-*   front of the linked list. The nodes less than x will automatically end up towards the end.
-*   Here we have to keep in mind to move the node itself, we are not creating a newnode with the same
-*   data and moving it in the front, we are changing the place of the node in the list.
-*   
+*   We join the last element to the first element of the second list and delete the second list's start.
 *   Refer to the doubly linked list program (DoublyLinkedList.c).
 *   
 *   
@@ -230,48 +224,42 @@ int deleteAtPosition(DoublyLinkedList * dll, int position)
     return data;
 }
 
-void separateByX(DoublyLinkedList * dll, int x)
+// Join two doubly linked lists
+void joinDoublyLinkedLists(DoublyLinkedList * dll1, DoublyLinkedList * dll2)
 {
-    Node * ptr = dll->start->next; 
-    Node * ptr1;
-    while(ptr != NULL)
-    {
-        ptr1 = ptr->next;
-        if(ptr->data > x)
-        {
-            if(ptr->prev != NULL)
-            {
-                ptr->prev->next = ptr->next;
-                ptr->next->prev = ptr->prev;
-                ptr->next = dll->start->next;
-                ptr->prev = NULL;
-                dll->start->next->prev = ptr;
-                dll->start->next = ptr;
-            }
-        }
-        ptr = ptr1;
-    }
+    Node * ptr = dll1->start;
+    while(ptr->next != NULL)
+        ptr = ptr->next;
+    ptr->next = dll2->start->next;
+    dll2->start->next->prev = ptr;
+    free(dll2->start);
+    free(dll2);
 }
 
 int main()
 {
     DoublyLinkedList * dll = createDoublyLinkedList();
     insertAtEnd(dll, 30);
-    display(dll);
     insertAtEnd(dll, 25);
-    display(dll);
     insertAtEnd(dll, 65);
-    display(dll);
     insertAtEnd(dll, 20);
-    display(dll);
     insertAtEnd(dll, 5);
-    display(dll);
     insertAtEnd(dll, 75);
-    display(dll);
     insertAtEnd(dll, 10);
-    display(dll);
     insertAtEnd(dll, 20);
     display(dll);
-    separateByX(dll, 25);
+
+    DoublyLinkedList * dll1 = createDoublyLinkedList();
+    insertAtEnd(dll1, 20);
+    insertAtEnd(dll1, 85);
+    insertAtEnd(dll1, 61);
+    insertAtEnd(dll1, 20);
+    insertAtEnd(dll1, 56);
+    insertAtEnd(dll1, 75);
+    insertAtEnd(dll1, 17);
+    insertAtEnd(dll1, 90);
+    display(dll1);
+
+    joinDoublyLinkedLists(dll, dll1);
     display(dll);
 }

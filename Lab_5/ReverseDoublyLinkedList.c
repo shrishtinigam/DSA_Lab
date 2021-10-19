@@ -1,23 +1,10 @@
-// NodeSeparation.c
+// ReverseDoublyLinkedList.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 /*  Question -
-*   Consider a scenario where n elements are present in the list. User wants to separate the list in two 
-*   using one value x such that all the nodes greater than x comes at one end whereas nodes smaller than 
-*   x comes to another end
-*/
-
-/*  Soultion -
-*   Here the question is solved for doubly linked lists.  
-*   We traverse through the linked list. If we come across a node that is greater than x, it is moved to 
-*   front of the linked list. The nodes less than x will automatically end up towards the end.
-*   Here we have to keep in mind to move the node itself, we are not creating a newnode with the same
-*   data and moving it in the front, we are changing the place of the node in the list.
-*   
-*   Refer to the doubly linked list program (DoublyLinkedList.c).
-*   
-*   
+*   There are few elements is given in the list. Given elements are not in a sorted way. Write one 
+*   function to reverse the given list (using recursion and without using recursion)
 */
 
 typedef struct Node{
@@ -230,48 +217,44 @@ int deleteAtPosition(DoublyLinkedList * dll, int position)
     return data;
 }
 
-void separateByX(DoublyLinkedList * dll, int x)
+// Reverse a doubly linked list without recursion
+void reverse_1(DoublyLinkedList * dll)
 {
-    Node * ptr = dll->start->next; 
+    Node * ptr = dll->start->next->next; 
     Node * ptr1;
     while(ptr != NULL)
     {
         ptr1 = ptr->next;
-        if(ptr->data > x)
+        if(ptr->prev != NULL)
         {
-            if(ptr->prev != NULL)
-            {
-                ptr->prev->next = ptr->next;
+            ptr->prev->next = ptr->next;
+            if(ptr->next != NULL)
                 ptr->next->prev = ptr->prev;
-                ptr->next = dll->start->next;
-                ptr->prev = NULL;
-                dll->start->next->prev = ptr;
-                dll->start->next = ptr;
-            }
+            ptr->next = dll->start->next;
+            ptr->prev = NULL;
+            dll->start->next->prev = ptr;
+            dll->start->next = ptr;
         }
         ptr = ptr1;
     }
 }
-
+// Reverse a doubly linked list with recursion - incomplete
+void reverse_2(Node * ptr)
+{
+    
+}
 int main()
 {
     DoublyLinkedList * dll = createDoublyLinkedList();
     insertAtEnd(dll, 30);
-    display(dll);
     insertAtEnd(dll, 25);
-    display(dll);
     insertAtEnd(dll, 65);
-    display(dll);
     insertAtEnd(dll, 20);
-    display(dll);
     insertAtEnd(dll, 5);
-    display(dll);
     insertAtEnd(dll, 75);
-    display(dll);
     insertAtEnd(dll, 10);
-    display(dll);
     insertAtEnd(dll, 20);
     display(dll);
-    separateByX(dll, 25);
+    reverse_1(dll);
     display(dll);
 }
