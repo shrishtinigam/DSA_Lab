@@ -152,6 +152,11 @@ void display(DoublyLinkedList * dll)
 // Returns the 1-base position of the first occurance of data.
 int search(DoublyLinkedList * dll, int item)
 {
+    if(dll->start->next == NULL)
+    {
+        printf("Empty Doubly Linked List, nothing to search for.\n");
+        return INT_MIN;
+    }
     int count = 1;
     Node * ptr = dll->start->next;
     while(ptr->data != item)
@@ -242,7 +247,7 @@ int deleteAtPosition(DoublyLinkedList * dll, int position)
     data = ptr->data;
     free(ptr);
     dll->len--;
-    printf("%d was deleted from %d position of the singly linked list.\n", data, position);
+    printf("%d was deleted from %d position of the doubly linked list.\n", data, position);
     return data;
 }
 
