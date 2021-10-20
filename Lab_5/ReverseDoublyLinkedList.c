@@ -64,7 +64,8 @@ void insertAtEnd(DoublyLinkedList * dll, int item)
     while(ptr->next != NULL)
         ptr = ptr->next;
     ptr->next = newnode;
-    newnode->prev = ptr;
+    if(ptr != dll->start)
+        newnode->prev = ptr;
     printf("%d was inserted at the end of the doubly linked list!\n", item);
     dll->len++;
 }
@@ -182,6 +183,7 @@ int deleteAtEnd(DoublyLinkedList * dll)
     printf("%d was deleted from the start of the doubly linked list.\n", data);
     return data;
 }
+
 // Deletion of an element at a particular position
 // Here, position is determined by usual 1-base counting.
 int deleteAtPosition(DoublyLinkedList * dll, int position)
@@ -238,11 +240,25 @@ void reverse_1(DoublyLinkedList * dll)
         ptr = ptr1;
     }
 }
-// Reverse a doubly linked list with recursion - incomplete
-void reverse_2(Node * ptr)
+
+// Reverse a doubly linked list with recursion
+void reverse_2(Node * ptr, Node * start)
 {
-    
+    if(ptr->next == NULL)
+    {
+        start->next = ptr;
+        return;
+    }
+    reverse_2(ptr->next, start);
+    ptr->next->prev = ptr->next->next;
+    ptr->next->next = ptr;
+    if(ptr->prev == NULL)
+    {
+        ptr->prev = ptr->next;
+        ptr->next = NULL;
+    }
 }
+
 int main()
 {
     DoublyLinkedList * dll = createDoublyLinkedList();
@@ -250,11 +266,15 @@ int main()
     insertAtEnd(dll, 25);
     insertAtEnd(dll, 65);
     insertAtEnd(dll, 20);
-    insertAtEnd(dll, 5);
+    insertAtEnd(dll, 57);
     insertAtEnd(dll, 75);
     insertAtEnd(dll, 10);
-    insertAtEnd(dll, 20);
+    insertAtEnd(dll, 29);
     display(dll);
+    // Reversing using iterative method
     reverse_1(dll);
+    display(dll);
+    // Reversing using recursive method
+    reverse_2(dll->start->next, dll->start);
     display(dll);
 }

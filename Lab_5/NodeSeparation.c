@@ -77,7 +77,8 @@ void insertAtEnd(DoublyLinkedList * dll, int item)
     while(ptr->next != NULL)
         ptr = ptr->next;
     ptr->next = newnode;
-    newnode->prev = ptr;
+    if(ptr != dll->start)
+        newnode->prev = ptr;
     printf("%d was inserted at the end of the doubly linked list!\n", item);
     dll->len++;
 }
