@@ -130,6 +130,11 @@ void insertAtPosition(DoublyLinkedList * dll, int item, int position)
 /* Display function provided for illustrative purposes.*/
 void display(DoublyLinkedList * dll)
 {
+    if(dll->start->next == NULL)
+    {
+        printf("Empty Doubly Linked List, nothing to display.\n");
+        return;
+    }
     // Printing data
     Node * ptr = dll->start->next; 
     printf("Start: %d \n", dll->start);
@@ -161,13 +166,13 @@ int search(DoublyLinkedList * dll, int item)
     Node * ptr = dll->start->next;
     while(ptr->data != item)
     {
-        ptr = ptr->next;
-        count++;
         if(ptr->data != item && ptr->next == NULL)
         {
             printf("%d not found in the doubly linked list.\n", item);
             return INT_MIN;
         }
+        ptr = ptr->next;
+        count++;
     }
     printf("%d found at %d position in the doubly linked list.\n", item, count);
     return count;

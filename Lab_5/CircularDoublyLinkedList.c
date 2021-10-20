@@ -4,6 +4,24 @@
 #include <limits.h>
 
 /*
+    A circular doubly linked list here is defined by its "start".
+    "start" is a node pointer that points to the first element.
+
+    Here, start is a proper node with memory allocated to it.
+    Note that start doesn't store any actual data.
+    The next of the start node stores the location of the first element in the doubly linked list. 
+    The prev of the start node is NULL and never accessed.
+    The data of the start node is INT_MIN and never accessed.
+
+    Thus, if we create a circular doubly linked list "dcll", dcll->start->next gives us the first element.
+
+    The first element's prev node is the address of the last node. (Thus, it is not connected to the start node.)
+    The last elements's next node is the address of the first node. Thus the linked list is circular.
+
+    "len" stores the number of elements in the linked list. This can be easily calculated,
+    however it is added to make things easier and for illustration. It can be removed. 
+    Functions are written independent of len.
+    
     Functions provided: 
 
     insertAtStart
@@ -141,9 +159,10 @@ void display(CircularDoublyLinkedList * dcll)
 {
     if(dcll->start->next == NULL)
     {
-        printf("Circular doubly linked list is empty.\n");
+        printf("Circular doubly linked list is empty, nothing to display.\n");
         return;
     }
+    // Printing data
     Node * ptr = dcll->start->next;
     if(ptr == ptr->next)
         printf("%d      ", ptr->data);
@@ -156,9 +175,9 @@ void display(CircularDoublyLinkedList * dcll)
         }
         printf("%d      ", ptr->data);
     }
-    printf("\n");
+    // Printing the location
     Node * ptr2 = dcll->start->next; 
-    printf("%d ", ptr->next);
+    printf("\n%d ", ptr->next);
     while(ptr2->next != dcll->start->next)
     {
         printf("%d ", ptr2->next);
@@ -180,13 +199,13 @@ int search(CircularDoublyLinkedList * dcll, int item)
     Node * ptr = dcll->start->next;
     while(ptr->data != item)
     {
-        ptr = ptr->next;
-        count++;
         if(ptr->data != item && ptr->next == dcll->start->next)
         {
             printf("%d not found in the circular doubly linked list.\n", item);
             return INT_MIN;
         }
+        ptr = ptr->next;
+        count++;
     }
     printf("%d found at %d position in the circular doubly linked list.\n", item, count);
     return count;
@@ -213,7 +232,7 @@ int deleteAtStart(CircularDoublyLinkedList * dcll)
     }
     int data = ptr->data;
     free(ptr);
-    printf("%d was deleted from the start of the doubly linked list.\n", data);
+    printf("%d was deleted from the start of the circular doubly linked list.\n", data);
     dcll->len--;
     return data;
 }
@@ -237,7 +256,7 @@ int deleteAtEnd(CircularDoublyLinkedList * dcll)
     }
     int data = ptr->data;
     free(ptr);
-    printf("%d was deleted from the end of the doubly linked list.\n", data);
+    printf("%d was deleted from the end of the circular doubly linked list.\n", data);
     dcll->len--;
     return data;
 }
@@ -248,7 +267,7 @@ int deleteAtPosition(CircularDoublyLinkedList * dcll, int position)
 {
     if(dcll->start->next == NULL)
     {
-        printf("Doubly Linked List is empty, nothing to delete\n");
+        printf("Circular doubly linked list is empty, nothing to delete\n");
         return INT_MIN;
     }
     Node * ptr = dcll->start;

@@ -68,7 +68,6 @@ void insertAtStart(DoublyLinkedList * dll, int item)
     printf("%d was inserted at the start of the doubly linked list!\n", item);
     dll->len++;
 }
-
 // Inserts an element at the end of a doubly linked list
 void insertAtEnd(DoublyLinkedList * dll, int item)
 {
@@ -115,6 +114,11 @@ void insertAtPosition(DoublyLinkedList * dll, int item, int position)
 /* Display function provided for illustrative purposes.*/
 void display(DoublyLinkedList * dll)
 {
+    if(dll->start->next == NULL)
+    {
+        printf("Empty Doubly Linked List, nothing to display.\n");
+        return;
+    }
     // Printing data
     Node * ptr = dll->start->next; 
     printf("Start: %d \n", dll->start);
@@ -137,17 +141,22 @@ void display(DoublyLinkedList * dll)
 // Returns the 1-base position of the first occurance of data.
 int search(DoublyLinkedList * dll, int item)
 {
+    if(dll->start->next == NULL)
+    {
+        printf("Empty Doubly Linked List, nothing to search for.\n");
+        return INT_MIN;
+    }
     int count = 1;
     Node * ptr = dll->start->next;
     while(ptr->data != item)
     {
-        ptr = ptr->next;
-        count++;
         if(ptr->data != item && ptr->next == NULL)
         {
             printf("%d not found in the doubly linked list.\n", item);
             return INT_MIN;
         }
+        ptr = ptr->next;
+        count++;
     }
     printf("%d found at %d position in the doubly linked list.\n", item, count);
     return count;
@@ -227,12 +236,13 @@ int deleteAtPosition(DoublyLinkedList * dll, int position)
     data = ptr->data;
     free(ptr);
     dll->len--;
-    printf("%d was deleted from %d position of the singly linked list.\n", data, position);
+    printf("%d was deleted from %d position of the doubly linked list.\n", data, position);
     return data;
 }
 
 void separateByX(DoublyLinkedList * dll, int x)
 {
+    printf("Separating Nodes by %d\n", x);
     Node * ptr = dll->start->next; 
     Node * ptr1;
     while(ptr != NULL)
@@ -258,19 +268,12 @@ int main()
 {
     DoublyLinkedList * dll = createDoublyLinkedList();
     insertAtEnd(dll, 30);
-    display(dll);
     insertAtEnd(dll, 25);
-    display(dll);
     insertAtEnd(dll, 65);
-    display(dll);
     insertAtEnd(dll, 20);
-    display(dll);
     insertAtEnd(dll, 5);
-    display(dll);
     insertAtEnd(dll, 75);
-    display(dll);
     insertAtEnd(dll, 10);
-    display(dll);
     insertAtEnd(dll, 20);
     display(dll);
     separateByX(dll, 25);
