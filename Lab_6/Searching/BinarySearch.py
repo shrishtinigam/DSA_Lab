@@ -1,6 +1,6 @@
 n1 = int(input())
 lista = []
-for i in range(n):
+for i in range(n1):
     x = int(input())
     lista[i].append(x)
 
