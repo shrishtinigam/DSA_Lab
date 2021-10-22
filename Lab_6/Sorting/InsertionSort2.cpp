@@ -103,7 +103,7 @@ vector <int> InsertionSort3(vector <int> v, int n)
 1 3 5 9 3 8 2
  i = 3
 1 3 5 9 3 8 2
- i = 2
+ i = 2       --> shows that sort is stable 
 1 3 3 5 9 8 2
  i = 3
 1 3 3 5 9 8 2

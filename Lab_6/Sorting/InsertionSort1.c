@@ -1,12 +1,23 @@
 #include <stdio.h>
-void InsertionSort(int arr[]);
+void InsertionSort(int arr[], int n);
 int main()
 {
-    int arr[5]={3,2,6,4,8};
+    int n, x;
+    printf("Number of integers to sort: ");
+    scanf("%d", &n);
+    int arr[n];
+    printf("Enter the integer values\n");
+    // Takes in the values from the user
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%d", &x);
+        arr[i] = x;
+    }
 
-    InsertionSort(arr);
+    InsertionSort(arr, n);
 
-    for(int i = 0; i < 5; i++)
+    printf("Sorted Array - ");
+    for(int i = 0; i < n; i++)
     {
         printf("%d ", arr[i]);
     }
@@ -15,14 +26,12 @@ int main()
 // TC - BEST CASE - O(n)
 // TC - WORST CASE CASE - O(n^2)
 // SPACE COMPLEXITY - O(1) - IN PLACE
-// It is a stable sort
+// Sort Stability - Stable sort
 // its most helpful when you have an almost sorted array
 // used in online query - when elements are coming in one by one at random
 
-void InsertionSort(int arr[])
+void InsertionSort(int arr[], int n)
 {
-    int n = sizeof(arr)/sizeof(arr[0]);
-
     for(int i = 1; i < n ; i++)
     {
         int key = arr[i];
