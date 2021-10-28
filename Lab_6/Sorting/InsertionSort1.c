@@ -3,10 +3,10 @@ void InsertionSort(int arr[], int n);
 int main()
 {
     int n, x;
-    printf("Number of integers to sort: ");
+    printf("Enter the integer values\n");
     scanf("%d", &n);
     int arr[n];
-    printf("Enter the integer values\n");
+    printf("Number of integers to sort: ");
     // Takes in the values from the user
     for(int i = 0; i < n; i++)
     {

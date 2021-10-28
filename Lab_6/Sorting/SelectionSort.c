@@ -22,6 +22,7 @@ int main()
     while(j<n)
     {
         x = arr[j]; // Assume the first element of the unsorted part of the array is the smallest element
+        hold2 = j;
         for(int i = j;  i < n; i++) // So, iterating over the unsorted part of the array,
         {
             if(x > arr[i]) // If our assumption is greater than an element,
