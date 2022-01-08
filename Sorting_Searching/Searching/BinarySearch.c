@@ -50,7 +50,7 @@ int BinarySearch2(int n, int arr[], int x)
     int r = n-1;
     while(l <= r)
     {
-        int mid = l + (r - l)/2;
+        int mid = l + (r - l)/2; // to prevent overflow
         if(arr[mid] == x)
         {
             printf("Found\n");
