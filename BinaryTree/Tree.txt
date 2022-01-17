@@ -1,0 +1,46 @@
+Tree
+
+Non Linear memory
+Non Linear structure
+Hierarchical
+
+Tree Terminologies
+
+Node
+Root
+Parent
+Child
+Internal Node
+External Node / Leaf Node / Terminal Node
+Edge 
+Sibling
+Height of a node - no. of edges from deepest Leaf
+Height of a tree - height of root 
+Depth of a node - no. of edges from root
+Depth of a tree - depth of a leaf
+Degree of a node - no. of a children at the node
+Level
+Path - sequence of nodes
+Degree of a tree - max degree of a node
+
+Types of Trees 
+
+General Tree 
+Binary Tree 
+Binary Search Tree 
+Full Binary Tree / Proper Binary Tree - every node node has either two or no children
+Complete Binary Tree - completely filled from left to right except possibly the last one 
+Perfect Binary Tree - every internal node has 2 child nodes & all leaf nodes are at same level 
+..
+..
+Self balancing trees
+AVL
+Red Black Trees 
+B Trees 
+B+ Trees 
+..
+..
+
+Inorder Traversal -> L, Root, R 
+Postorder Traversal -> L, R, Root 
+Preorder Traversal -> Root, L, R

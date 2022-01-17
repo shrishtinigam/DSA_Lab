@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <stdbool.h>
 
 typedef struct Node{
     int data;
@@ -28,8 +29,8 @@ Node * createNode(int item)
 BinaryTree * createBinaryTree(int item)
 {
     BinaryTree * bt = (BinaryTree *)malloc(sizeof(BinaryTree));
-    Node * newnode = createNode(item);
-    bt->root = newnode;
+    bt->root = createNode(item);
+    printf("A new binary tree was created! \n");
     return bt;
 }
 
@@ -59,45 +60,63 @@ void insertAtRight(Node * root, int item)
         printf("Right node already occupied.\n");
 }
 
-void InorderTraversal(Node * root)
+void Inorder(Node * root)
 {
-    if(root != NULL)
-    {
-        InorderTraversal(root->left);
-        printf("%d ",root->data);
-        InorderTraversal(root->right);
-    }
+    if(root == NULL)
+        return;
+    Inorder(root->left);
+    printf("%d ",root->data);
+    Inorder(root->right);
+}
+void InorderTraversal(BinaryTree * tree)
+{
+    printf("Printing inorder traversal of the tree! \n");
+    Inorder(tree->root);
 }
 
-void PreorderTraversal(Node * root)
+void Preorder(Node * root)
 {
-    if(root != NULL)
-    {
-        printf("%d ",root->data);
-        PreorderTraversal(root->left);
-        PreorderTraversal(root->right);
-    }
+    if(root == NULL)
+        return;
+    printf("%d ",root->data);
+    Preorder(root->left);
+    Preorder(root->right);
+}
+void PreorderTraversal(BinaryTree * tree)
+{
+    printf("Printing preorder traversal of the tree! \n");
+    Preorder(tree->root);
 }
 
-void PostorderTraversal(Node * root)
+void Postorder(Node * root)
 {
-    if(root != NULL)
-    {
-        PostorderTraversal(root->left);
-        PostorderTraversal(root->right);
-        printf("%d ",root->data);
-    }
+    if(root == NULL)
+        return;
+    Postorder(root->left);
+    Postorder(root->right);
+    printf("%d ",root->data);
+}
+void PostorderTraversal(BinaryTree * tree)
+{
+    printf("Printing postorder traversal of the tree! \n");
+    Postorder(tree->root);
 }
 
-void deleteBinaryTree(Node * root)
+void delete(Node * root)
 {
     Node * temp = root;
     if(root != NULL)
     {
-        deleteBinaryTree(root->left);
-        deleteBinaryTree(root->right);
+        delete(root->left);
+        delete(root->right);
     }
     free(temp);
+}
+
+void deleteBinaryTree(BinaryTree * bt)
+{
+    printf("Deleting Binary Tree...\n");
+    delete(bt->root);
 }
 
 // Deletes elements using the node of the element to be delted and its parent node.
@@ -148,19 +167,20 @@ void deleteNode(Node * root, Node * parent)
     free(temp);
 }
 
-int is_found = 0;
-void search(int item, Node * root)
+bool search(int item, Node * root)
 {
     if(root == NULL)
-        return;
+        return false;
     if(root->data == item)
     {
         printf("Item %d was found.\n", item);
-        is_found = 1;
-        return;
+        return true;
     }
-    search(item, root->left);
-    search(item, root->right);
+    if(search(item, root->left))
+        return true;
+    else if(search(item, root->right))
+        return true;
+    return false;
 }
 
 int main()
@@ -176,39 +196,34 @@ int main()
     insertAtRight(bt->root->right->left, 7);
     insertAtLeft(bt->root->right->left, 65);
 
-    // Searching in the binary tree
-    is_found = 0;
-    search(10, bt->root);
-    if(is_found == 0)
-        printf("Item was not found.\n");
-        is_found = 0;
-    search(1, bt->root);
-    if(is_found == 0)
-        printf("Item was not found.\n");
+    if(!search(10, bt->root))
+        printf("Item 10 was not found.\n");
+
+    if(!search(23, bt->root))
+        printf("Item 1 was not found.\n");
 
     // Inorder, Preorder and Postorder traversals of the binary tree
-    InorderTraversal(bt->root);
+    InorderTraversal(bt);
     printf("\n");
-    PreorderTraversal(bt->root);
+    PreorderTraversal(bt);
     printf("\n");
-    PostorderTraversal(bt->root);
+    PostorderTraversal(bt);
     printf("\n");
 
     // 0 child deletion
     deleteNode(bt->root->right->right->right, bt->root->right->right);
-    InorderTraversal(bt->root);
+    InorderTraversal(bt);
     printf("\n");
     // 1 child deletion
     deleteNode(bt->root->right->right, bt->root->right);
-    InorderTraversal(bt->root);
+    InorderTraversal(bt);
     printf("\n");
     // 2 child deletion
     deleteNode(bt->root->right, bt->root);
-    InorderTraversal(bt->root);
+    InorderTraversal(bt);
     printf("\n");
 
     // deletion of whole binary tree
-    deleteBinaryTree(bt->root);
-    InorderTraversal(bt->root);
+    deleteBinaryTree(bt);
     printf("\n");
 }
