@@ -36,7 +36,7 @@ int BinarySearch(int arr[], int l, int r, int x)
         int mid = l + (r - l) / 2;
         if (arr[mid] == x)
             return mid;
-        if (arr[mid] > x)
+        else if (arr[mid] > x)
             return BinarySearch(arr, l, mid - 1, x);
         return BinarySearch(arr, mid + 1, r, x);
     }
@@ -56,7 +56,7 @@ int BinarySearch2(int n, int arr[], int x)
             printf("Found\n");
             return mid;
         }
-        if (arr[mid] < x)
+        else if (arr[mid] < x)
             l = mid + 1;
         else
             r = mid - 1;

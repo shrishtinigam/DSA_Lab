@@ -1,4 +1,5 @@
-// BS_Count_Of_Element.cpp
+// 4_Count_Of_Element.cpp
+// https://www.geeksforgeeks.org/count-number-of-occurrences-or-frequency-in-a-sorted-array/
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -6,18 +7,17 @@ int BinarySearch(vector<int>arr,int x);
 int main()
 {
     int x, n;
-    vector <int> arr;
-    cout << "Enter the integer values in ascending order, enter -1 when completed" << endl;
     
-    do
-    {
-        cin>>x;
-        arr.push_back(x);
-    }while(x!=-1);
+    cout << "Enter length of array: \n";
+    cin >> n;
+    vector <int> arr(n);
+    cout << "Enter the integer values in ascending order: \n";
+    
+    for(int i = 0; i < n; i++)
+        cin >> arr[i];
 
     cout << "Which number's count do you want to check?" << endl;
-    cin>>x;
-    arr.pop_back();
+    cin >> x;
     cout << BinarySearch(arr,x);
 }
 

@@ -1,5 +1,4 @@
-// BS_OrderNotKnown.cpp
-
+// 2_Order_Not_Known.cpp
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -7,18 +6,17 @@ int BinarySearch(vector<int>arr,int x);
 int main()
 {
     int x, n;
-    vector <int> arr;
-    cout << "Enter the integer values in ascending or descending order, enter -1 when completed" << endl;
+
+    cout << "Enter length of array: \n";
+    cin >> n;
+    vector <int> arr(n);
+    cout << "Enter the integer values in ascending or descending order: \n";
     
-    do
-    {
-        cin>>x;
-        arr.push_back(x);
-    }while(x!=-1);
+    for(int i = 0; i < n; i++)
+        cin >> arr[i];
 
     cout << "Which number's existence do you want to check?" << endl;
-    cin>>x;
-    arr.pop_back();
+    cin >> x;
     cout << BinarySearch(arr,x);
 }
 
